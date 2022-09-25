@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>Babylon Template</title>
+        <script src="https://cdn.babylonjs.com/babylon.js"></script>
+        <style>
+            body,#renderCanvas { width: 100%; height: 100%;}
+        </style>
+    </head>
+   <body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById("renderCanvas"); // Get the canvas element
+        const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+
+        async function createScene(engine) {
+          const scene = new BABYLON.Scene(engine);
+
+          const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0));
+          camera.attachControl(canvas, true);
+          const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
+
+          const ground = BABYLON.MeshBuilder.CreateGround("ground", {width:10, height:10}, scene);
+          const groundMat = new BABYLON.StandardMaterial("groundMat");
+          groundMat.diffuseTexture = new BABYLON.Color3(0, 1, 0);
+
+          const sound = new BABYLON.Sound("", "sound/cellolong.wav", scene, null, { loop: true, autoplay: true });
+
+          const faceUV = [];
+          faceUV[0] = new BABYLON.Vector4(0.5, 0.0, 0.75, 1.0); //rear face
+          faceUV[1] = new BABYLON.Vector4(0.0, 0.0, 0.25, 1.0); //front face
+          faceUV[2] = new BABYLON.Vector4(0.25, 0, 0.5, 1.0); //right side
+          faceUV[3] = new BABYLON.Vector4(0.75, 0, 1.0, 1.0); //left side
+          faceUV[4] = new BABYLON.Vector4(0, 0, 0, 0);
+          faceUV[5] = new BABYLON.Vector4(0, 0, 0, 0);
+          const boxMat = new BABYLON.StandardMaterial("boxMat");
+          boxMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/cubehouse.png");
+          const box = BABYLON.MeshBuilder.CreateBox("box", {faceUV: faceUV, width: 1, height: 1, wrap: true}, scene);
+          box.material = boxMat;
+          box.position.y = 0.5;
+
+          return scene;
+        }
+
+        // Register a render loop to repeatedly render the scene
+        createScene(engine).then(sceneToRender => {
+            engine.runRenderLoop(() => sceneToRender.render());
+        });
+
+        // Watch for browser/canvas resize events
+        window.addEventListener("resize", function () {
+                engine.resize();
+        });
+    </script>
+   </body>
+</html>
