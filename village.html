@@ -38,6 +38,12 @@
           box.material = boxMat;
           box.position.y = 0.5;
 
+          // XR
+          const environment = scene.createDefaultEnvironment();
+          const xrHelper = await scene.createDefaultXRExperienceAsync({
+            floorMeshes: [environment.ground]
+          });
+
           return scene;
         }
 
