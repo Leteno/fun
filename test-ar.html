@@ -53,6 +53,7 @@
             var xr = await scene.createDefaultXRExperienceAsync({
                 uiOptions: {
                     sessionMode: "immersive-ar",
+                    requiredFeatures: ['anchors', 'hit-test', 'plane-detection'],
                     referenceSpaceType: "local-floor"
                 },
                 optionalFeatures: true
