@@ -34,14 +34,14 @@
 
             const keyXFrames = [], keyYFrames = [];
             let frame = 0, frameRate = 2;
-            for (let degree = 0, step = 10; degree <= 360; degree += step, frame += frameRate) {
+            for (let degree = 0, step = 1; degree <= 360; degree += step, frame += frameRate) {
                 keyXFrames.push({
                     frame: frame,
-                    value: Math.sin(degree) * 10
+                    value: Math.sin(degree) * 4
                 });
                 keyYFrames.push({
                     frame: frame,
-                    value: Math.cos(degree) * 10
+                    value: Math.cos(degree) * 4
                 });
             }
             const xSlide = new BABYLON.Animation("xSlide", "position.x", frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
