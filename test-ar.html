@@ -32,6 +32,25 @@
             sphere.position.y = 2;
             sphere.position.z = 5;
 
+            const frameRate = 10;
+            const xSlide = new BABYLON.Animation("xSlide", "position.x", frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+            const keyFrames = [];
+            keyFrames.push({
+                frame: 0,
+                value: 2,
+            });
+            keyFrames.push({
+                frame: frameRate,
+                value: -2,
+            });
+            keyFrames.push({
+                frame: frameRate * 2,
+                value: 2,
+            });
+            xSlide.setKeys(keyFrames);
+            sphere.animations.push(xSlide);
+            scene.beginAnimation(sphere, 0, 2*frameRate, true);
+
             const xr = await scene.createDefaultXRExperienceAsync({
                 // ask for an ar-session
                 uiOptions: {
