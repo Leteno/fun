@@ -32,25 +32,9 @@
             sphere.position.y = 2;
             sphere.position.z = 5;
 
-            const keyXFrames = [], keyYFrames = [];
-            let frame = 0, frameRate = 2;
-            for (let degree = 0, step = 1; degree <= 360; degree += step, frame += frameRate) {
-                keyXFrames.push({
-                    frame: frame,
-                    value: Math.sin(degree) * 4
-                });
-                keyYFrames.push({
-                    frame: frame,
-                    value: Math.cos(degree) * 4
-                });
-            }
-            const xSlide = new BABYLON.Animation("xSlide", "position.x", frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-            const ySlide = new BABYLON.Animation("ySlide", "position.y", frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-            xSlide.setKeys(keyXFrames);
-            ySlide.setKeys(keyYFrames);
-            sphere.animations.push(xSlide);
-            sphere.animations.push(ySlide);
-            scene.beginAnimation(sphere, 0, frame, true);
+            let animations = await BABYLON.Animation.ParseFromSnippetAsync('7CYP56');
+            sphere.animations = animations;
+            scene.beginAnimation(sphere, 0, 120, true);
 
             const xr = await scene.createDefaultXRExperienceAsync({
                 // ask for an ar-session
