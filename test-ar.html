@@ -48,7 +48,7 @@
                 value: 2,
             });
             xSlide.setKeys(keyFrames);
-            sphere.Animation.push(xSlide);
+            sphere.animations.push(xSlide);
             scene.beginAnimation(sphere, 0, 2*frameRate, true);
 
             const xr = await scene.createDefaultXRExperienceAsync({
